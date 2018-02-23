@@ -18,16 +18,25 @@ def random_index(rate):
             break
     return index
 
+
+def getPB(market, net):
+    return market/net
+
+#to do function
+def generateOffset():
+
+
+
 def generateGrowthPoints():
     growthPoints = []
     for i in range(-100,101,1):
         growthPoints.append(i)
     return growthPoints
 
-def generateProbabilityPoints(growthPoints):
+def generateProbabilityPoints(growthPoints,offset):
     probabilityPoints = []
     for point in growthPoints:
-        probabilityPoints.append(-pow(point,2) + 10000)
+        probabilityPoints.append(-pow((point-offset),2) + 10000)
     return probabilityPoints
 
 def updown():
@@ -50,6 +59,12 @@ print(score_history)
 
 # In[81]:
 
+
+
+
+
+
+#------以下为策略部分-----------------------------------
 money = 0       #每个月固定投10000
 money_noaction = 0
 i = 0
