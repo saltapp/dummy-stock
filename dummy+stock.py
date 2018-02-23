@@ -18,9 +18,23 @@ def random_index(rate):
             break
     return index
 
+def generateGrowthPoints():
+    growthPoints = []
+    for i in range(-100,101,1):
+        growthPoints.append(i)
+    print(growthPoints)
+    return growthPoints
+
+def generateProbabilityPoints(growthPoints):
+    probabilityPoints = []
+    for point in growthPoints:
+        probabilityPoints.append(-pow(point,2) + 10000)
+    print(probabilityPoints)
+    return probabilityPoints
+
 def updown():
-    updown_arr = [0,1,2,3,4,5,6,7,8,9]
-    rate = [500,250,125,63,32,16,8,4,2,1]
+    growthPoints = generateGrowthPoints()
+    probabilityPoints = generateProbabilityPoints(growthPoints)
     index = random_index(rate)
     return updown_arr[index]
 
