@@ -22,36 +22,29 @@ def generateGrowthPoints():
     growthPoints = []
     for i in range(-100,101,1):
         growthPoints.append(i)
-    print(growthPoints)
     return growthPoints
 
 def generateProbabilityPoints(growthPoints):
     probabilityPoints = []
     for point in growthPoints:
         probabilityPoints.append(-pow(point,2) + 10000)
-    print(probabilityPoints)
     return probabilityPoints
 
 def updown():
     growthPoints = generateGrowthPoints()
     probabilityPoints = generateProbabilityPoints(growthPoints)
-    index = random_index(rate)
-    return updown_arr[index]
+    index = random_index(probabilityPoints)
+    return round(growthPoints[index]/1000,3)
 
 
 # In[80]:
 
 score = 100
 score_history = []
-for i in range(120):
-    addflag = random.randint(0, 1)
-    if(addflag == 0):
-        score *= (1-updown()/100)
-        score_history.append(round(score,2))
-    else:
-        score *= (1+updown()/100)
-        score_history.append(round(score,2))
-        
+for i in range(100):
+    score *= (1+updown())
+    score_history.append(round(score,2))
+
 print(score_history)
 
 
@@ -73,11 +66,11 @@ for i in range(0,len(score_history)):
         money_noaction += 10000
     money_result.append(round(money,2))
     money_noaction_result.append(money_noaction)
-print(round(money,1))
-print(round(money_noaction,1))
+# print(round(money,1))
+# print(round(money_noaction,1))
 
-print(money_result)
-print(money_noaction_result)
+# print(money_result)
+# print(money_noaction_result)
 
 
 # In[82]:
@@ -98,10 +91,10 @@ for i in range(0,len(score_history)):
         money_noaction += 10000
     money_result.append(round(money+money_out,2))
 
-print(round(money+money_out,2))
-print(round(money_noaction,2))
+# print(round(money+money_out,2))
+# print(round(money_noaction,2))
 
-print(money_result)
+# print(money_result)
 
 
 # In[83]:
@@ -125,10 +118,10 @@ for i in range(0,len(score_history)):
     money_noaction += 10000
     
     
-print(round(money+money_out,2))
-print(round(money_noaction,2))
+# print(round(money+money_out,2))
+# print(round(money_noaction,2))
 
-print(money_result)
+# print(money_result)
 
 
 # In[ ]:
