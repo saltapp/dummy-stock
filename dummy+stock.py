@@ -25,14 +25,19 @@ def getPB(market, net):
 #2018-02-26 completed
 #to be modified 
 def generateOffset(pb):
-    offset = -(0.015625 * pow((pb-5),3))
+    offset = -(1.5625 * pow((pb-5),3))
     return offset
 
 #to do function 2018-02-26
-def tanliArray(offset):
+def getTanliArray(offset):
     tanliArray = []
-    tanli = pow(offset, 0.5)
-    return tanli
+    if offset > 0:
+        for i in range(0,101,1):
+            tanliArray.append(pow(abs(i), 0.5))
+    else:
+        for i in range(-100,1,1):
+            tanliArray.append(pow(abs(i), 0.5))
+    return tanliArray
 
 def generateGrowthPoints():
     growthPoints = []
