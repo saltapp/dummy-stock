@@ -22,10 +22,13 @@ def random_index(rate):
 def getPB(market, net):
     return market/net
 
-#to do function
-def generateOffset():
+#2018-02-26 completed
+def generateOffset(pb):
+    offset = pow(0.02*(pb-8),2)
+    return offset
 
-
+#to do function 2018-02-26
+def tanli():
 
 def generateGrowthPoints():
     growthPoints = []
