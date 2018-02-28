@@ -11,7 +11,7 @@ def random_index(rate):
     # 参数rate为list<int>
     #
     start = 0
-    randnum = random.randint(1, sum(rate))
+    randnum = random.uniform(1, sum(rate))
     for index, item in enumerate(rate):       
         start += item
         if randnum <= start:
@@ -26,24 +26,28 @@ def getPB(market, net):
 #to be modified 
 def generateOffset(pb):
     offset = -(1.5625 * pow((pb-5),3))
+    if(offset > 100.0):
+        offset = 100
+    if(offset < -100.0):
+        offset = -100
     return offset
 
 #to do function 2018-02-26
-def getTanliArray(offset):
-    tanliArray = []
-    if offset > 0:
-        for i in range(0,101,1):
-            tanliArray.append(pow(abs(i), 0.5))
+# www.symbolab.com get process of integral
+def getReverseProbability(offset):
+    sumProbability = (2/3) * pow(100,3/2)   # (2/3) * pow(x,3/2)
+    offsetProbability = (2/3) * pow(offset,3/2)
+    randomP = random.uniform(0, sumProbability)
+    if(randomP <= offset):
+        return True
     else:
-        for i in range(-100,1,1):
-            tanliArray.append(pow(abs(i), 0.5))
-    return tanliArray
+        return False
 
 def generateGrowthPoints():
     growthPoints = []
     for i in range(-100,101,1):
         growthPoints.append(i)
-    return growthPoints
+    return growthPoints            #growthPoints = [-100,-99,...,0,1,...100]
 
 def generateProbabilityPoints(growthPoints,offset):
     probabilityPoints = []
@@ -51,20 +55,29 @@ def generateProbabilityPoints(growthPoints,offset):
         probabilityPoints.append(-pow((point-offset),2) + 10000)
     return probabilityPoints
 
-def updown():
+def updown(offset):
     growthPoints = generateGrowthPoints()
-    probabilityPoints = generateProbabilityPoints(growthPoints)
+    probabilityPoints = generateProbabilityPoints(growthPoints, offset)
     index = random_index(probabilityPoints)
     return round(growthPoints[index]/1000,3)
 
 
 # In[80]:
 
-score = 100
+market = 500
+net = 100
 score_history = []
+offset = 0
 for i in range(100):
-    score *= (1+updown())
-    score_history.append(round(score,2))
+    market *= (1+updown(offset))
+    score_history.append(round(market,2))
+    pb = getPB(market, net)
+    offset = generateOffset(pb)
+    print(offset)
+    reverseFlag = getReverseProbability(offset)
+    if(reverseFlag == True):
+        offset = 0 - offset
+
 
 print(score_history)
 
