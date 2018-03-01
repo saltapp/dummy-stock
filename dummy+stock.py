@@ -5,6 +5,7 @@
 
 
 import random
+import math
 def random_index(rate):
     """随机变量的概率函数"""
     #
@@ -27,9 +28,9 @@ def getPB(market, net):
 def generateOffset(pb):
     offset = -(1.5625 * pow((pb-5),3))
     if(offset > 100.0):
-        offset = 100
+        offset = 100.0
     if(offset < -100.0):
-        offset = -100
+        offset = -100.0
     return offset
 
 #to do function 2018-02-26
@@ -43,9 +44,9 @@ def getReverseProbability(offset):
     else:
         return False
 
-def generateGrowthPoints():
+def generateGrowthPoints(start, end):
     growthPoints = []
-    for i in range(-100,101,1):
+    for i in range(start, end+1, 1):
         growthPoints.append(i)
     return growthPoints            #growthPoints = [-100,-99,...,0,1,...100]
 
@@ -56,7 +57,16 @@ def generateProbabilityPoints(growthPoints,offset):
     return probabilityPoints
 
 def updown(offset):
-    growthPoints = generateGrowthPoints()
+    if(offset > 0):
+        start = math.ceil(-100 + offset)
+        end = 100
+    if(offset < 0):
+        start = -100
+        end = math.floor(100 + offset)
+    if(offset == 0):
+        start = -100
+        end = 100
+    growthPoints = generateGrowthPoints(start, end)
     probabilityPoints = generateProbabilityPoints(growthPoints, offset)
     index = random_index(probabilityPoints)
     return round(growthPoints[index]/1000,3)
