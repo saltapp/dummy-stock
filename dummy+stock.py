@@ -78,7 +78,9 @@ market = 500
 net = 100
 score_history = []
 offset = 0
-for i in range(100):
+for i in range(120):
+    if(i % 12 == 0):
+        net *= 1.15
     market *= (1+updown(offset))
     score_history.append(round(market,2))
     pb = getPB(market, net)
